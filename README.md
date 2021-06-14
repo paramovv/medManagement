@@ -1,5 +1,0 @@
-
-
-
-
-[Project Details](medmanagement.pdf)
