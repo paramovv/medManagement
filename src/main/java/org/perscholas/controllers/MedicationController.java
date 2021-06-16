@@ -11,8 +11,6 @@ package org.perscholas.controllers;
 public class MedicationController {
     @GetMapping("/current")
     public String currentMedications(Model model) {
-
-
         return "medications";
     }
 }

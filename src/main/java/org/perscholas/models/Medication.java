@@ -38,7 +38,7 @@ public class Medication implements Serializable {
         this.mdRecommendations = mdRecommendations;
     }
     @Fetch(FetchMode.JOIN)
-    @ManyToMany(mappedBy = "fmedication", targetEntity = Fmember.class)
+    @ManyToMany(mappedBy = "fmedications", targetEntity = Fmember.class)
     private List<Fmember> medMember;
 
     public void addFmember(Fmember fmember){this.medMember.add(fmember);}

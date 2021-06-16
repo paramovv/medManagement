@@ -1,4 +1,3 @@
-/*
 package org.perscholas.controllers;
 
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("login");
-       // registry.addViewController("/login");
+        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/login").setViewName("login");
     }
 }
-*/

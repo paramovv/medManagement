@@ -27,6 +27,7 @@ public class FmemberService {
     public Fmember getFmemberByName(String name) {
         return fmemberRepo.findByFusername(name);
     }
+
     public boolean isValid(String name, String password) {
         return fmemberRepo.existsByFusernameAndFpassword(name, password);
     }
@@ -34,18 +35,18 @@ public class FmemberService {
 
     public boolean addFmemberToMedication(Long fid, Long mid) {
         Fmember fMember = fmemberRepo.getById(fid);
-        List<Medication> medications = fMember.getFmedication();
+        List<Medication> medications = fMember.getFmedications();
         Medication medication = medRepo.getById(mid);
         if (medications.contains(medication)) {
             return false;
         }
         medications.add(medication);
-        fMember.setFmedication(medications);
+        fMember.setFmedications(medications);
         fmemberRepo.save(fMember);
         return true;
     }
     public List<Medication> getFmemberMedications(Long fId) {
-        return fmemberRepo.getById(fId).getFmedication();
+        return fmemberRepo.getById(fId).getFmedications();
     }
 
     public void addFmember(Fmember fmember) {
@@ -57,10 +58,10 @@ public class FmemberService {
 
     public Fmember updateFmember(Fmember fmember) {
         Fmember dbFmember = fmemberRepo.getById(fmember.getFId());
-        List<Medication> addedMedications = fmember.getFmedication();
-        List<Medication> currentMedications = dbFmember.getFmedication();
+        List<Medication> addedMedications = fmember.getFmedications();
+        List<Medication> currentMedications = dbFmember.getFmedications();
         currentMedications.addAll(addedMedications);
-        dbFmember.setFmedication(currentMedications);
+        dbFmember.setFmedications(currentMedications);
         fmemberRepo.save(dbFmember);
         return dbFmember;
     }

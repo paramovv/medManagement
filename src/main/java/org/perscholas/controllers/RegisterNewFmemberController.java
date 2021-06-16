@@ -27,11 +27,13 @@ public class RegisterNewFmemberController {
     public RegisterNewFmemberController(FmemberService fmemberService){//, FileService fileService) {
         this.fmemberService = fmemberService;
         //this.fileService = fileService;
+        log.warn("1!!!");
     }
 
     @GetMapping
     public String showRegistrationForm(Model model) {
         model.addAttribute("fmember", new Fmember());
+        log.warn("2!!!");
         return "new-fmember";
     }
 
@@ -41,6 +43,7 @@ public class RegisterNewFmemberController {
           log.warn("inside new fmamber/register"); // @RequestParam("file") MultipartFile file) {
         if (result.hasErrors()) {
             log.warn("first if statement");
+            log.warn("3!!!");
             return "new-fmember";
         }
 
@@ -55,8 +58,8 @@ public class RegisterNewFmemberController {
         fmemberService.addFmember(fmember);
         model.addAttribute("success", "Account created.");
         model.addAttribute("fmember", fmember);
-
-        return "register";
+        log.warn("1AA!!!");
+        return "redirect:/register";
     }
 }
 

@@ -2,13 +2,10 @@ package org.perscholas.models;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.java.Log;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -26,7 +23,7 @@ public class Fmember implements Serializable {
 
     @Fetch(FetchMode.JOIN)
     @ManyToMany(targetEntity = Medication.class)
-    List<Medication> fmedication;
+    List<Medication> fmedications;
 
 
     @Id
@@ -50,11 +47,11 @@ public class Fmember implements Serializable {
     public Fmember(String name, String password){
         fusername = name;
         fpassword = password;
-        fmedication = new ArrayList<>();
+        fmedications = new ArrayList<>();
     }
 
     public void addMedication(Medication medication) {
-        this.fmedication.add(medication);
+        this.fmedications.add(medication);
     }
 
     @Override
