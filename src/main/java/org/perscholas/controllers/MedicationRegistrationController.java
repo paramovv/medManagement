@@ -20,41 +20,42 @@ import java.util.stream.Collectors;
 public class MedicationRegistrationController {
     private final MedicationService medicationService;
     private final FmemberService fmemberService;
-
     @Autowired
     public MedicationRegistrationController(MedicationService medicationService, FmemberService fmemberService) {
         this.medicationService = medicationService;
         this.fmemberService = fmemberService;
+        log.warn("MedicationRegistrationController");
     }
-
     @ModelAttribute
-    public void addMedicationsToModel(Model model) {
+    public void addMedicationsToModel(Fmember fmember,Model model) {
+        log.warn("addMedicationsToModel/model");
         List<Medication> medications = medicationService.getAllMedications();
-        model.addAttribute("medications", medications);
+        model.addAttribute("medications", filterCurrentMedications(medicationService.getAllMedications(), fmember.getFmedications()));
+        //model.addAttribute("medications", medications);
     }
-
     @GetMapping
     public String showRegistrationForm() {
+        log.warn("showRegistrationForm/register/get");
         return "register";
     }
 
     @PostMapping
     public String processFmemberRegistration(Fmember fmember, Model model) {
+        log.warn("showRegistraprocessFmemberRegistrationtionForm/resentmedications/post");
         Fmember updatedFmember = fmemberService.updateFmember(fmember);
         model.addAttribute("currentmedications", updatedFmember.getFmedications());
-        model.addAttribute(
-                "medications",
-                filterEnrolledCourses(medicationService.getAllMedications(), fmember.getFmedications()));
-
-        return "resentmedications";
+       model.addAttribute("medications", filterCurrentMedications(medicationService.getAllMedications(), fmember.getFmedications()));
+        return "register";
+        //return "resentmedications";
     }
-
-    private Iterable<Medication> filterEnrolledCourses(
+    private Iterable<Medication> filterCurrentMedications(
             List<Medication> allMedications, List<Medication> fmedications) {
+        log.warn("filterCurrentMedications");
         if (fmedications == null || fmedications.size() == 0) {
+            log.warn("allMedications");
             return allMedications;
         }
-
+        log.warn("allMedications.stream");
         return allMedications.stream()
                 .filter(medication -> !fmedications.contains(medication))
                 .collect(Collectors.toList());

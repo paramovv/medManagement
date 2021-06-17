@@ -9,8 +9,9 @@
 <div th:insert="navbar :: navbar"></div>
 <div class="container">
     <h3> Medications taken</h3>
-    <h4>Medications for<span th:text="${fmember.fusername}"></span></h4>
-    <ul class="list-group" th:each="curMedication : ${currentMedications}">
+    <h4>Medications for:  <span th:text="${fmember.fusername}"></span></h4>
+
+    <ul class="list-group" th:each="curMedication:${currentmedications}">
         <li class="list-group-item list-group-item-action" th:text="${curMedication.name}"
             th:value="${curMedication.mid}">
             Medication name

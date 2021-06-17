@@ -27,30 +27,24 @@ public class RegisterNewFmemberController {
     public RegisterNewFmemberController(FmemberService fmemberService){//, FileService fileService) {
         this.fmemberService = fmemberService;
         //this.fileService = fileService;
-        log.warn("1!!!");
     }
 
     @GetMapping
     public String showRegistrationForm(Model model) {
         model.addAttribute("fmember", new Fmember());
-        log.warn("2!!!");
         return "new-fmember";
     }
 
     @PostMapping("/register")
     public String addFmember(
             @Valid @ModelAttribute("fmember") Fmember fmember, BindingResult result, Model model){
-          log.warn("inside new fmamber/register"); // @RequestParam("file") MultipartFile file) {
+          // @RequestParam("file") MultipartFile file) {
         if (result.hasErrors()) {
-            log.warn("first if statement");
-            log.warn("3!!!");
             return "new-fmember";
         }
 
         if (fmemberService.checkIfFmemberExists(fmember.getFusername(), fmember.getFusername())) {
-            log.warn("second if statement");
             model.addAttribute("error", "You are already in the system. Please login.");
-
             return "redirect:/home";
         }
         log.warn("outside the if statement");
@@ -58,7 +52,6 @@ public class RegisterNewFmemberController {
         fmemberService.addFmember(fmember);
         model.addAttribute("success", "Account created.");
         model.addAttribute("fmember", fmember);
-        log.warn("1AA!!!");
         return "redirect:/register";
     }
 }

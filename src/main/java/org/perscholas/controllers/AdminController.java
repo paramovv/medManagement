@@ -35,15 +35,15 @@ public class AdminController {
         return "all-fmembers";
     }
 
- /*   @GetMapping("fmember-info")
+   @GetMapping("fmember-info")
     public String getFmember() {
         return "fmember-info";
-    }*/
-   /* @PostMapping("/lookup")
+    }
+    @PostMapping("/lookup")
     public String displayInfo(@ModelAttribute("name") String name, Model model) {
         Fmember fmember = fmemberService.getFmemberByName(name);
         model.addAttribute("fmember", fmember);
 
         return "fmember-info";
-    }*/
+    }
 }
