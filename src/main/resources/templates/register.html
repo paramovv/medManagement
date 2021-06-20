@@ -1,8 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 <head th:insert="head :: head"></head>
@@ -13,110 +12,22 @@
     <h3>Medications Registration</h3>
    <h4>Current medications for <span th:text="${fmember.fusername}"></span></h4>
 
-  <!--<ul class="list-group" th:each="curMedication : ${currentmedications}">
-
-        <li class="list-group-item list-group-item-action" for="curMedication"
-            th:text="${curMedication.name}" th:value="${curMedication.mid}">
-        </li>
-    </ul>-->
-
-    <table class="table table-striped table-primary">
-
-        <thead class="ttop">
-        <tr class="table-info">
+    <div class="table table-striped table-primary">
+        <table class="ttop">
+            <thead>
             <td width="20px"><b> ID</b></td>
             <td><b>NAME</b> </td>
-        </tr>
-        </thead>
+            </thead>
         <tbody>
-
-    <!--    <tr th:each="curMedication,iStat: ${currentmedications}" th:style="${iStat.odd}? 'font-weight: normal;'">
-            <td th:text="${curMedication.mid}" width="20px">
-            </td><td th:text="${curMedication.name}">
-        </td><td>
-            <form th:action="@{/delete-fmedications}" th:object="${currentmedications}" method="post">
-                <input type="hidden" name="id" th:value="${curMedication.mid}">
-                <input type="hidden" name="name" th:value="${curMedication.name}">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-        </tr>-->
-
-    <!--<form th:action="@{/delete-fmedications}" th:object="${fmember}" method="post">
-
-    <tr th:each="curMedication:${currentmedications}">
-        <th scope="row" th:text="${medication.mid}">ID</th>
-        <th><span th:text="${medication.name}"></span></th>
-        <th>
-
-                <input type="submit" name="btnInsert" class="btn btn-primary" value="Delete" />
-            </form>-->
-
-
-
-    <!--<form th:action="@{/delete-fmedications}" th:object="${fmember}" method="post">
-
-        <tr th:each="curMedication:${currentmedications}">
-            <th><span th:text="${curMedication.mid}"></span></th>
-            <th><span th:text="${curMedication.name}"></span></th>
-            <th>
-
-                <input type="submit" name="btnInsert" class="btn btn-primary" value="Delete" />
-    </form>-->
-            <!-- <form th:action="@{/showCustomer}" th:object="${customers}" method="post">
-                <input type="submit" name="btnInsert" class="btn btn-primary" value="Add" />
-            </form>-->
-            <!-- <form th:action="@{/UpdateCustomer}" th:object="${customers}" method="post">
-                 <button class="btn btn-warning">
-                     <span class="glyphicon glyphicon-pencil" aria-hidden="true">Edit</span>
-                 </button>
-             </form>-->
-        </th>
+    <tr class="list-group" th:each="curMedication : ${currentmedications}">
+            <td th:text="${curMedication.name}"> </td>
+            <td th:text="${curMedication.mid}"></td>
+            <td><a th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="btn btn-danger">Delete</a></td>
     </tr>
-    <!--<form action="#" th:action="@{/customermanagement}"	th:object="${CustomersAdd}" method="post">
-        <tr>
-            <td><input type="text" placeholder="Course"
-                       th:field="*{course}" /></td>
-            <td><input type="text" placeholder="Name"
-                       th:field="*{firstname}" /></td>
-            <td><input type="text" placeholder="Last Name"
-                       th:field="*{lastname}" /></td>
-            <td><input type="text" placeholder="Address"
-                       th:field="*{address}" /></td>
-            <td><input type="submit" name="btnInsert"
-                       class="btn btn-primary" value="Add" /></td>
-        </tr>
-        &lt;!&ndash;<tr>
-            <td>
-                <p th:if="${#fields.hasErrors('course')}" th:errors="*{course}">course
-                    has errors</p>
-            </td>
-            <td>
-                <p th:if="${#fields.hasErrors('firstname')}"
-                   th:errors="*{firstname}">firstname has errors</p>
-            </td>
-            <td>
-                <p th:if="${#fields.hasErrors('lastname')}"
-                   th:errors="*{lastname}">lastname has errors</p>
-            </td>
-            <td>
-                <p th:if="${#fields.hasErrors('address')}"
-                   th:errors="*{address}">address has errors</p>
-            </td>
-        </tr>&ndash;&gt;
-    </form>
-
--->
-    <ul class="list-group" th:each="curMedication : ${currentmedications}">
-        <li class="list-group-item list-group-item-action" for="curMedication"
-            th:text="${curMedication.name}" th:value="${curMedication.mid}">
-        </li>
-    </ul>
         </tbody>
-    </table>
-
+        </table>
+    </div>
     <h6>Available Medications </h6>
-
     <form id="medicationForm" method="post" th:object="${fmember}" >
         <div class="form-check" th:each="medication: ${medications}">
             <label class="form-check-label" for="medication" th:text="${medication.name}"></label>
@@ -125,7 +36,6 @@
         </div>
        <input type="submit" name="Register Medications" />
     </form>
-
 </div>
 </body>
 </html>
