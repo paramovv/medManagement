@@ -12,15 +12,15 @@
 <div class="container">
   <h1>Medication Management</h1>
   <span th:text="${error}"></span>
-  <form method="post" th:action="@{/login}">
+  <form method="get" th:action="@{/register}" th:object="${fmember}">
     <div class="mb-3">
       <label class="form-label" for="name">User Name</label>
-      <input class="form-control" id="name" name="name" type="name">
+      <input class="form-control" id="name" name="fusername" type="name">
     </div>
-    <div class="mb-3">
+    <!--<div class="mb-3">
       <label class="form-label" for="password">Password</label>
       <input class="form-control" id="password" name="password" type="password">
-    </div>
+    </div>-->
     <button class="btn btn-primary" type="submit">Login</button>
   </form>
   <!-- <a th:href="@{/new-fmember}">Create new account</a>-->

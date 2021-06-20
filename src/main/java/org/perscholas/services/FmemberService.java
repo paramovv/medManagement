@@ -1,5 +1,6 @@
 package org.perscholas.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.perscholas.dao.IFmemberRepo;
 import org.perscholas.dao.IMedRepo;
 import org.perscholas.models.Fmember;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Slf4j
 @Service
 @Transactional
 public class FmemberService {
@@ -33,7 +34,8 @@ public class FmemberService {
     }
 
 
-    public boolean addFmemberToMedication(Long fid, Long mid) {
+   /* public boolean addFmemberToMedication(Long fid, Long mid) {
+        log.warn("addFmemberToMedication");
         Fmember fMember = fmemberRepo.getById(fid);
         List<Medication> medications = fMember.getFmedications();
         Medication medication = medRepo.getById(mid);
@@ -44,12 +46,13 @@ public class FmemberService {
         fMember.setFmedications(medications);
         fmemberRepo.save(fMember);
         return true;
-    }
+    }*/
     public List<Medication> getFmemberMedications(Long fId) {
         return fmemberRepo.getById(fId).getFmedications();
     }
 
     public void addFmember(Fmember fmember) {
+        log.warn("save addFmember");
         fmemberRepo.save(fmember);
     }
     public boolean checkIfFmemberExists(String fusername, String fpassword) {
@@ -57,10 +60,27 @@ public class FmemberService {
     }
 
     public Fmember updateFmember(Fmember fmember) {
-        Fmember dbFmember = fmemberRepo.getById(fmember.getFId());
+       // log.warn("before dbFmember:" );
+        Fmember dbFmember = fmemberRepo.getById(fmember.getfId());
+        //.warn("after dbFmember:" );
+        //список добавленые лекарства
         List<Medication> addedMedications = fmember.getFmedications();
+        //список лекарств из базы данных
         List<Medication> currentMedications = dbFmember.getFmedications();
+        //добавить новые к существующим в один список
         currentMedications.addAll(addedMedications);
+        //set list in view?
+        dbFmember.setFmedications(currentMedications);
+        //save in DB
+        fmemberRepo.save(dbFmember);
+        return dbFmember;
+    }
+    @Transactional
+    public Fmember removeMedication(Fmember fmember) {
+        Fmember dbFmember = fmemberRepo.getById(fmember.getfId());
+        List<Medication> removedMedications = fmember.getFmedications();
+        List<Medication> currentMedications = dbFmember.getFmedications();
+        currentMedications.remove(removedMedications);
         dbFmember.setFmedications(currentMedications);
         fmemberRepo.save(dbFmember);
         return dbFmember;

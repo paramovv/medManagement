@@ -21,6 +21,16 @@ public class AdminController {
         this.medicationService = medicationService;
         this.fmemberService = fmemberService;
     }
+    @GetMapping("/")
+    public String getString()
+    {
+        return "login";
+    }
+    @GetMapping("home")
+    public String showHomePage()
+    {
+        return "home";
+    }
     @GetMapping("all-medications")
     public String showMedications(Model model) {
         List<Medication> medications = medicationService.getAllMedications();

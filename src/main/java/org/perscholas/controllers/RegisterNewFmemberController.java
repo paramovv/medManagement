@@ -32,6 +32,7 @@ public class RegisterNewFmemberController {
     @GetMapping
     public String showRegistrationForm(Model model) {
         model.addAttribute("fmember", new Fmember());
+        log.warn("created new fmamber object");
         return "new-fmember";
     }
 
@@ -43,12 +44,14 @@ public class RegisterNewFmemberController {
             return "new-fmember";
         }
 
-        if (fmemberService.checkIfFmemberExists(fmember.getFusername(), fmember.getFusername())) {
+        if (fmemberService.checkIfFmemberExists(fmember.getFusername(),fmember.getFpassword())) {
             model.addAttribute("error", "You are already in the system. Please login.");
+            log.warn("checkIfFmemberExists");
             return "redirect:/home";
         }
-        log.warn("outside the if statement");
+
        // fmember.setFmemberImage(fileService.uploadFile(file));
+        log.warn("addFmember");
         fmemberService.addFmember(fmember);
         model.addAttribute("success", "Account created.");
         model.addAttribute("fmember", fmember);

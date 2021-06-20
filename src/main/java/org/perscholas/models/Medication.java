@@ -34,6 +34,7 @@ public class Medication implements Serializable {
     String mdRecommendations;
 
     public Medication(String name,String mdRecommendations){
+        log.warn("medication constructor");
         this.name= name;
         this.mdRecommendations = mdRecommendations;
     }
@@ -41,7 +42,8 @@ public class Medication implements Serializable {
     @ManyToMany(mappedBy = "fmedications", targetEntity = Fmember.class)
     private List<Fmember> medMember;
 
-    public void addFmember(Fmember fmember){this.medMember.add(fmember);}
+    public void addFmember(Fmember fmember){
+        log.warn("medication addFmember");this.medMember.add(fmember);}
 
 
 

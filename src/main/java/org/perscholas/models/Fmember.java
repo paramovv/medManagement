@@ -2,6 +2,7 @@ package org.perscholas.models;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
@@ -17,8 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-
+@Slf4j
 public class Fmember implements Serializable {
+
     static final long serialVersionUID = 6381462249347345007L;
 
     @Fetch(FetchMode.JOIN)
@@ -44,22 +46,30 @@ public class Fmember implements Serializable {
     String fpassword;
    // private String fmemberImage;
 
+    public Long getfId() {
+        return fId;
+    }
+
+    @Override
+    public String toString() {
+        return "Fmember{" +
+                "fId=" + fId +
+                ", fusername='" + fusername + '\'' +
+                ", fpassword='" + fpassword + '\'' +
+                '}';
+    }
+
+
     public Fmember(String name, String password){
+        log.warn("fmember constructor");
         fusername = name;
         fpassword = password;
         fmedications = new ArrayList<>();
     }
 
     public void addMedication(Medication medication) {
+        log.warn("fmember addMedication");
         this.fmedications.add(medication);
-    }
-
-    @Override
-    public String toString() {
-        return "Fmember{" +
-                " fusername='" + fusername + '\'' +
-                ", fpassword='" + fpassword + '\'' +
-                '}';
     }
 
 
