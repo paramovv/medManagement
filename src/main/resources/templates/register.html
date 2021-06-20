@@ -19,9 +19,10 @@
             <td><b>NAME</b> </td>
             </thead>
         <tbody>
-    <tr class="list-group" th:each="curMedication : ${currentmedications}">
-            <td th:text="${curMedication.name}"> </td>
-            <td th:text="${curMedication.mid}"></td>
+    <tr class="list-group" th:each="curMedication : ${currentmedications}" th:style="${iStat.odd}? 'font-weight: normal;'">
+            <td th:text="${curMedication.name}" width="20px"> </td>
+            <td th:text="${curMedication.mid}" width="20px"></td>
+             <td><a th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="btn btn-default">Edit</a></td>
             <td><a th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="btn btn-danger">Delete</a></td>
     </tr>
         </tbody>
