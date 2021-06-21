@@ -45,13 +45,19 @@ public class MedicationController {
             return "update-fmedications";
         }
 
-    @PostMapping("/delete-fmedications")
-    public String deleteFmedication(Fmember fmember, Model model) {
-        Fmember removeMedication = fmemberService.removeMedication(fmember);
+    @PostMapping("/delete-fmedications/{cid}")
+    public String deleteFmedication(@PathVariable("cid") long cid, Fmember fmember, Model model) {
+        Fmember removeMedication = fmemberService.removeMedication(fmember,cid);
         model.addAttribute("currentmedications", removeMedication.getFmedications());
         model.addAttribute("medications", filterCurrentMedications(medicationService.getAllMedications(), fmember.getFmedications()));
         model.addAttribute("fusername",fmember.getFusername());
-        return "register";
+        return "finalize";
+    }
+
+    @PostMapping("/edit-fmedications")
+    public String editFmedication(Fmember fmember, Model model) {
+
+        return "editMedication";
     }
     private Iterable<Medication> filterCurrentMedications(
             List<Medication> allMedications, List<Medication> fmedications) {

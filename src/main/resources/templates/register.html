@@ -4,7 +4,22 @@
       xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-<head th:insert="head :: head"></head>
+<head th:insert="head :: head">
+    <style>
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button {background-color: blue;}
+</style>
+</head>
 <body>
 <div th:insert="navbar :: navbar"></div>
 <!-- Page content-->
@@ -12,31 +27,69 @@
     <h3>Medications Registration</h3>
    <h4>Current medications for <span th:text="${fmember.fusername}"></span></h4>
 
-    <div class="table table-striped table-primary">
-        <table class="ttop">
+
+
+   <!-- <div class="table table-striped table-primary">
+        <table class="ttop" style="width:400px">
             <thead>
-            <td width="20px"><b> ID</b></td>
-            <td><b>NAME</b> </td>
+            <td><b> ID</b></td>
+            <td ><b>NAME</b> </td>
             </thead>
+
         <tbody>
-    <tr class="list-group" th:each="curMedication : ${currentmedications}" th:style="${iStat.odd}? 'font-weight: normal;'">
-            <td th:text="${curMedication.name}" width="20px"> </td>
-            <td th:text="${curMedication.mid}" width="20px"></td>
-             <td><a th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="btn btn-default">Edit</a></td>
-            <td><a th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="btn btn-danger">Delete</a></td>
+    <tr  th:each="curMedication : ${currentmedications}" >
+            <td th:text="${curMedication.mid}" ></td>
+            <td th:text="${curMedication.name}" > </td>
+
+             <td><a th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="button">Edit</a></td>
+            <td><a method="POST" th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="button">Delete</a></td>
     </tr>
         </tbody>
         </table>
+    </div>-->
+    <div class="table table-striped table-primary">
+        <table class="ttop" style="width:400px">
+            <thead>
+            <td><b> ID</b></td>
+            <td ><b>NAME</b> </td>
+            </thead>
+
+            <tbody>
+
+                <div class="form-check" th:each="curMedication : ${currentmedications}" >
+                    <tr>
+                <td th:text="${curMedication.mid}" ></td>
+                <td th:text="${curMedication.name}" > </td>
+
+                <td><form method="post" th:action="@{/delete-fmedications/}+${curMedication.mid}">
+                    <button th:cid="'delete' + ${curMedication.mid}" type="submit"><i>Delete</i>
+                    </button>
+                        </form>
+                </td>
+                        <td><form method="post" th:action="@{/edit-fmedications/}+${curMedication.mid}">
+                            <button th:cid="'delete' + ${curMedication.mid}" type="submit"><i>Edit</i>
+                            </button>
+                        </form>
+                        </td>
+
+            </tr>
+                </div>
+
+            </tbody>
+        </table>
     </div>
     <h6>Available Medications </h6>
-    <form id="medicationForm" method="post" th:object="${fmember}" >
+
+    <form th:action="@{/register}" method="post" th:object="${fmember}" >
         <div class="form-check" th:each="medication: ${medications}">
             <label class="form-check-label" for="medication" th:text="${medication.name}"></label>
+
             <input class="form-check-input" id="medication" th:field="*{fmedications}" th:value="${medication.mid}"
                    type="checkbox"/>
         </div>
        <input type="submit" name="Register Medications" />
     </form>
+
 </div>
 </body>
 </html>

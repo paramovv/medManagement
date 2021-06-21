@@ -17,6 +17,7 @@ public class FmemberService {
 
     private final IFmemberRepo fmemberRepo;
     private final IMedRepo medRepo;
+    private Object Medication;
 
     @Autowired
     public FmemberService(IFmemberRepo fmemberRepo,IMedRepo medRepo) {
@@ -33,36 +34,18 @@ public class FmemberService {
         return fmemberRepo.existsByFusernameAndFpassword(name, password);
     }
 
-
-   /* public boolean addFmemberToMedication(Long fid, Long mid) {
-        log.warn("addFmemberToMedication");
-        Fmember fMember = fmemberRepo.getById(fid);
-        List<Medication> medications = fMember.getFmedications();
-        Medication medication = medRepo.getById(mid);
-        if (medications.contains(medication)) {
-            return false;
-        }
-        medications.add(medication);
-        fMember.setFmedications(medications);
-        fmemberRepo.save(fMember);
-        return true;
-    }*/
     public List<Medication> getFmemberMedications(Long fId) {
         return fmemberRepo.getById(fId).getFmedications();
     }
 
     public void addFmember(Fmember fmember) {
-        log.warn("save addFmember");
         fmemberRepo.save(fmember);
     }
     public boolean checkIfFmemberExists(String fusername, String fpassword) {
         return fmemberRepo.existsByFusernameAndFpassword(fusername, fpassword);
     }
-
     public Fmember updateFmember(Fmember fmember) {
-       // log.warn("before dbFmember:" );
         Fmember dbFmember = fmemberRepo.getById(fmember.getfId());
-        //.warn("after dbFmember:" );
         //список добавленые лекарства
         List<Medication> addedMedications = fmember.getFmedications();
         //список лекарств из базы данных
@@ -75,13 +58,21 @@ public class FmemberService {
         fmemberRepo.save(dbFmember);
         return dbFmember;
     }
-    @Transactional
-    public Fmember removeMedication(Fmember fmember) {
+    //@Transactional
+    public Fmember removeMedication(Fmember fmember,long cid) {
+       Long currentmid=cid;
+        Medication www= null;
         Fmember dbFmember = fmemberRepo.getById(fmember.getfId());
         List<Medication> removedMedications = fmember.getFmedications();
+
+        for(Medication remMedication : removedMedications) {
+            if(remMedication.getMid().equals(currentmid)) {
+                www = remMedication;
+            }
+        }
         List<Medication> currentMedications = dbFmember.getFmedications();
-        currentMedications.remove(removedMedications);
-        dbFmember.setFmedications(currentMedications);
+        removedMedications.remove(www);
+        dbFmember.setFmedications(removedMedications);
         fmemberRepo.save(dbFmember);
         return dbFmember;
     }

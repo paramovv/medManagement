@@ -24,7 +24,8 @@ public class MedicationService {
         return medRepo.findAll();
     }
 
-    public Medication getCourseById(Long id) {
+    public Medication medicationById(Long id) {
         return medRepo.getById(id);
     }
+
 }
