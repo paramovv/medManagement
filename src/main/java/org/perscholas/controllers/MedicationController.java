@@ -12,6 +12,7 @@ package org.perscholas.controllers;
         import org.springframework.web.bind.annotation.*;
 
         import java.util.List;
+        import java.util.Set;
         import java.util.stream.Collectors;
 
 @Slf4j
@@ -54,11 +55,26 @@ public class MedicationController {
         return "finalize";
     }
 
-    @PostMapping("/edit-fmedications")
-    public String editFmedication(Fmember fmember, Model model) {
+
+
+    @GetMapping("/edit-fmedications/{cid}")
+    public String editFmedication(@PathVariable("cid") long cid, Fmember fmember, Model model) {
+Medication cmedication = medicationService.medicationById(cid);
+model.addAttribute("cmedication", cmedication);
 
         return "editMedication";
     }
+
+    @PostMapping("/finalEdit")
+    public String finalEdit(Fmember fmember, Model model) {
+
+        //add functionality to save info service
+
+
+        return "finalize";
+    }
+
+
     private Iterable<Medication> filterCurrentMedications(
             List<Medication> allMedications, List<Medication> fmedications) {
         log.warn("filterCurrentMedications");

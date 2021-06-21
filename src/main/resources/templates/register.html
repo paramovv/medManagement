@@ -28,50 +28,35 @@
    <h4>Current medications for <span th:text="${fmember.fusername}"></span></h4>
 
 
-
-   <!-- <div class="table table-striped table-primary">
-        <table class="ttop" style="width:400px">
-            <thead>
-            <td><b> ID</b></td>
-            <td ><b>NAME</b> </td>
-            </thead>
-
-        <tbody>
-    <tr  th:each="curMedication : ${currentmedications}" >
-            <td th:text="${curMedication.mid}" ></td>
-            <td th:text="${curMedication.name}" > </td>
-
-             <td><a th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="button">Edit</a></td>
-            <td><a method="POST" th:href="@{'/delete-fmedications' + ${curMedication.mid}}" class="button">Delete</a></td>
-    </tr>
-        </tbody>
-        </table>
-    </div>-->
     <div class="table table-striped table-primary">
         <table class="ttop" style="width:400px">
             <thead>
             <td><b> ID</b></td>
             <td ><b>NAME</b> </td>
+            <td ><b>DESCRIPTION</b> </td>
             </thead>
 
             <tbody>
 
                 <div class="form-check" th:each="curMedication : ${currentmedications}" >
+
                     <tr>
+
                 <td th:text="${curMedication.mid}" ></td>
                 <td th:text="${curMedication.name}" > </td>
+                <td th:text="${curMedication.mdRecommendations}"> </td>
 
                 <td><form method="post" th:action="@{/delete-fmedications/}+${curMedication.mid}">
                     <button th:cid="'delete' + ${curMedication.mid}" type="submit"><i>Delete</i>
                     </button>
                         </form>
                 </td>
-                        <td><form method="post" th:action="@{/edit-fmedications/}+${curMedication.mid}">
-                            <button th:cid="'delete' + ${curMedication.mid}" type="submit"><i>Edit</i>
+
+                  <td><form  method="get" th:action="@{/edit-fmedications/}+${curMedication.mid}" th:object="${fmember}">
+                        <button th:cid="'edit' + ${curMedication.mid}" type="Edit"><i>edit</i>
                             </button>
                         </form>
                         </td>
-
             </tr>
                 </div>
 

@@ -35,23 +35,16 @@ public class RegisterNewFmemberController {
         log.warn("created new fmamber object");
         return "new-fmember";
     }
-
     @PostMapping("/register")
     public String addFmember(
             @Valid @ModelAttribute("fmember") Fmember fmember, BindingResult result, Model model){
-          // @RequestParam("file") MultipartFile file) {
         if (result.hasErrors()) {
             return "new-fmember";
         }
-
         if (fmemberService.checkIfFmemberExists(fmember.getFusername(),fmember.getFpassword())) {
             model.addAttribute("error", "You are already in the system. Please login.");
-            log.warn("checkIfFmemberExists");
             return "redirect:/home";
         }
-
-       // fmember.setFmemberImage(fileService.uploadFile(file));
-        log.warn("addFmember");
         fmemberService.addFmember(fmember);
         model.addAttribute("success", "Account created.");
         model.addAttribute("fmember", fmember);

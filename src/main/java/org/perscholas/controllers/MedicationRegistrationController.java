@@ -48,19 +48,9 @@ public class MedicationRegistrationController {
        model.addAttribute("currentmedications", updatedFmember.getFmedications());
         //отвечает за доступные лекарства
         model.addAttribute("medications", filterCurrentMedications(medicationService.getAllMedications(), fmember.getFmedications()));
-      // model.addAttribute("fusername",fmember.getFusername());
         return "finalize";
     }
-/*    @PostMapping("/delete-fmedications")
-    public String deleteFmedication(Fmember fmember, Model model) {
-        // log.warn("deleteFmedication");
-        //System.out.println(fmember.getFmedications());
-        Fmember removeMedication = fmemberService.removeMedication(fmember);
-        model.addAttribute("currentmedications", removeMedication.getFmedications());
-        model.addAttribute("medications", filterCurrentMedications(medicationService.getAllMedications(), fmember.getFmedications()));
-        model.addAttribute("fusername",fmember.getFusername());
-        return "register";
-    }*/
+
     private Iterable<Medication> filterCurrentMedications(
             List<Medication> allMedications, List<Medication> fmedications) {
         log.warn("filterCurrentMedications");
