@@ -21,13 +21,11 @@ import java.util.List;
 @Entity
 @Slf4j
 public class Fmember implements Serializable {
-
     static final long serialVersionUID = 6381462249347345007L;
 
     @Fetch(FetchMode.JOIN)
     @ManyToMany(targetEntity = Medication.class)
     List<Medication> fmedications;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,35 +47,23 @@ public class Fmember implements Serializable {
     public static Logger getLog() {
         return log;
     }
-
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
-
     public List<Medication> getFmedications() {
         return fmedications;
     }
-
     public String getFusername() {
         return fusername;
     }
-
     public String getFpassword() {
         return fpassword;
     }
-    // private String fmemberImage;
-
     public Long getfId() {
         return fId;
     }
 
-
-
-
-
-
     public Fmember(String name, String password){
-        log.warn("fmember constructor");
         fusername = name;
         fpassword = password;
         fmedications = new ArrayList<>();
@@ -88,19 +74,15 @@ public class Fmember implements Serializable {
         this.fmedications.add(medication);
     }
 
-
     public void setFmedications(List<Medication> fmedications) {
         this.fmedications = fmedications;
     }
-
     public void setfId(Long fId) {
         this.fId = fId;
     }
-
     public void setFusername(String fusername) {
         this.fusername = fusername;
     }
-
     public void setFpassword(String fpassword) {
         this.fpassword = fpassword;
     }

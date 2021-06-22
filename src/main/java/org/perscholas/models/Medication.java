@@ -1,19 +1,17 @@
 package org.perscholas.models;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 @Slf4j
 //@Data
 @NoArgsConstructor
@@ -24,32 +22,27 @@ import java.util.List;
 
 public class Medication implements Serializable {
     static final long serialVersionUID = 6381462249347345007L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long mid;
-
-    public void setMid(Long mid) {
-        this.mid = mid;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setMdRecommendations(String mdRecommendations) {
-        this.mdRecommendations = mdRecommendations;
-    }
-
-    public void setMedMember(List<Fmember> medMember) {
-        this.medMember = medMember;
-    }
 
     @NonNull
     @NotBlank(message = "Please enter a medication name")
     String name;
     String mdRecommendations;
 
+    public void setMid(Long mid) {
+        this.mid = mid;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setMdRecommendations(String mdRecommendations) {
+        this.mdRecommendations = mdRecommendations;
+    }
+    public void setMedMember(List<Fmember> medMember) {
+        this.medMember = medMember;
+    }
     public static Logger getLog() {
         return log;
     }
@@ -79,13 +72,18 @@ public class Medication implements Serializable {
         this.name= name;
         this.mdRecommendations = mdRecommendations;
     }
-
-
-
     @Fetch(FetchMode.JOIN)
     @ManyToMany(mappedBy = "fmedications", targetEntity = Fmember.class)
     private List<Fmember> medMember;
 
+    @OneToMany(targetEntity = Mdetails.class)
+    private List<Mdetails> mdetails;
+
+
+    public Long getmid() {
+        return this.mid;
+    }
+    public List<Mdetails> getMdetails(){return mdetails;}
     public void addFmember(Fmember fmember){
         log.warn("medication addFmember");this.medMember.add(fmember);}
 

@@ -35,6 +35,7 @@ public class FmemberService {
     }
 
     public List<Medication> getFmemberMedications(Long fId) {
+
         return fmemberRepo.getById(fId).getFmedications();
     }
 
@@ -58,6 +59,11 @@ public class FmemberService {
         fmemberRepo.save(dbFmember);
         return dbFmember;
     }
+
+
+
+
+
     //@Transactional
     public Fmember removeMedication(Fmember fmember,long cid) {
        Long currentmid=cid;

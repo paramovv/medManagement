@@ -41,9 +41,11 @@ public class MedicationRegistrationController {
         return "register";
     }
 
-    @PostMapping
+    @PostMapping()
     public String processFmemberRegistration(Fmember fmember, Model model) {
+    //public String processFmemberRegistration(@PathVariable("cid") long cid,Fmember fmember, Model model) {
         Fmember updatedFmember = fmemberService.updateFmember(fmember);
+       // Medication updateDetails = medicationService.updateDetails(fmember,cid);
         //отвечает за новые лекарства и из обновляет
        model.addAttribute("currentmedications", updatedFmember.getFmedications());
         //отвечает за доступные лекарства
