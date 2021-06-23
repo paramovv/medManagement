@@ -45,15 +45,16 @@ public class FmemberService {
     public boolean checkIfFmemberExists(String fusername, String fpassword) {
         return fmemberRepo.existsByFusernameAndFpassword(fusername, fpassword);
     }
+
     public Fmember updateFmember(Fmember fmember) {
         Fmember dbFmember = fmemberRepo.getById(fmember.getfId());
-        //список добавленые лекарства
+        //list of added medications on HTML
         List<Medication> addedMedications = fmember.getFmedications();
-        //список лекарств из базы данных
+        //get list of medications from repository
         List<Medication> currentMedications = dbFmember.getFmedications();
-        //добавить новые к существующим в один список
+        //combine two lists
         currentMedications.addAll(addedMedications);
-        //set list in view?
+        //set list
         dbFmember.setFmedications(currentMedications);
         //save in DB
         fmemberRepo.save(dbFmember);

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
-//@RequestMapping("/admin")
+
 @SessionAttributes({"fmember", "currentMedications"})
 public class AdminController {
     private final MedicationService medicationService;

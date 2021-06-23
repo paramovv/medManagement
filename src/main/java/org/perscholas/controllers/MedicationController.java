@@ -18,7 +18,7 @@ package org.perscholas.controllers;
 @Slf4j
 @Controller
 @SessionAttributes({"fmember", "currentmedications"})
-//@RequestMapping("/medications")
+
 public class MedicationController {
     private final MedicationService medicationService;
     private final FmemberService fmemberService;
@@ -30,9 +30,7 @@ public class MedicationController {
     }
     @ModelAttribute
     public void addMedicationsToModel(Model model) {
-        log.warn("addMedicationsToModel");
         List<Medication> medications = medicationService.getAllMedications();
-        // model.addAttribute("medications", filterCurrentMedications(medicationService.getAllMedications(), fmember.getFmedications()));
         model.addAttribute("medications", medications);
     }
     @GetMapping("/current")
@@ -42,10 +40,9 @@ public class MedicationController {
 
     @PostMapping("/update-fmedications")
         public String updateFmedication(Model model) {
-
             return "update-fmedications";
         }
-
+//controller to delete medication. It reseived medication id parameter from HTML page and invoke method on service
     @PostMapping("/delete-fmedications/{cid}")
     public String deleteFmedication(@PathVariable("cid") long cid, Fmember fmember, Model model) {
         Fmember removeMedication = fmemberService.removeMedication(fmember,cid);
@@ -55,26 +52,17 @@ public class MedicationController {
         return "finalize";
     }
 
-
-
     @GetMapping("/edit-fmedications/{cid}")
     public String editFmedication(@PathVariable("cid") long cid, Fmember fmember, Model model) {
 Medication cmedication = medicationService.medicationById(cid);
 model.addAttribute("cmedication", cmedication);
-
         return "editMedication";
     }
 
     @PostMapping("/finalEdit")
     public String finalEdit(Fmember fmember, Model model) {
-
-        //add functionality to save info service
-
-
         return "finalize";
     }
-
-
     private Iterable<Medication> filterCurrentMedications(
             List<Medication> allMedications, List<Medication> fmedications) {
         log.warn("filterCurrentMedications");

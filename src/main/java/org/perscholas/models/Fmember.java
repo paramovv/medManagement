@@ -15,14 +15,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Data
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Slf4j
 public class Fmember implements Serializable {
     static final long serialVersionUID = 6381462249347345007L;
-
+//many to many relationship to Medication table
     @Fetch(FetchMode.JOIN)
     @ManyToMany(targetEntity = Medication.class)
     List<Medication> fmedications;

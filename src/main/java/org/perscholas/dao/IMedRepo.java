@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface IMedRepo extends JpaRepository<Medication,Long> {
     Optional<Medication> findByName(String name);
-        // Medication findByFusername(String name);
+
 
 }

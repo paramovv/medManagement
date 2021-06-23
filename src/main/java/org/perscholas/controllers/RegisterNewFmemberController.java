@@ -21,12 +21,10 @@ import javax.validation.Valid;
 public class RegisterNewFmemberController {
 
     private final FmemberService fmemberService;
-    //private final FileService fileService;
 
     @Autowired
     public RegisterNewFmemberController(FmemberService fmemberService){//, FileService fileService) {
         this.fmemberService = fmemberService;
-        //this.fileService = fileService;
     }
 
     @GetMapping
